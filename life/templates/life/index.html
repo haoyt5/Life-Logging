@@ -1,0 +1,445 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Grocery List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  Import CSS   -->
+<!-- 		<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,900i" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="{% static '/life/vendor/bootstrap/css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/life/css/main.css' %}" />
+    <link rel="stylesheet" href="../../static/life/css/base.css">
+    
+		<script src="{% static '/life/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="{% static '/life/vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+
+
+
+
+     <style type="text/css">
+    /*   GENERAL CLASS CSS    */    
+         /*   FONT     */
+        /*  Button   */
+     /*   Layout Frame     */
+
+       
+    /*   GENERAL CLASS CSS    */       
+      
+     *{
+/*        border:solid 1px #4444; */
+       }
+
+     body,html{
+        font-family: 'Source Sans Pro', 'sans-serif';'cursive', 'Ubuntu','Helvetica', 'roboto', 'arial', 'sans-serif';
+        margin:0;
+      }
+      a{
+          color: #9b9b9b;
+          text-decoration: none;
+          cursor: pointer;
+       }
+      a:hover,a:active{
+          color: #7fd1b9;
+       }
+       h1,h2,h3,h4,h5,h6,p{
+        font-family: 'Source Sans Pro', 'sans-serif';'cursive', 'Ubuntu','Helvetica', 'roboto', 'arial', 'sans-serif';
+        margin:0; 
+       }
+      h1{
+        font-size:24px;
+        font-family: 'Source Sans Pro', 'sans-serif';'cursive', 'Ubuntu','Helvetica', 'roboto', 'arial', 'sans-serif';
+        margin:0;
+       }
+/*        @media(min-width:765px){
+        body,html{
+          font-size: 8px;
+           } 
+       } */
+      /*     Button   */
+      .btn_nav{
+         display:inline-block;
+/*          border:1px solid #4444; */
+         font-size:30px;
+         padding:10px;
+         margin-top:30px;
+       }
+       .btn_shopitem{
+/*          border:1px solid #4444; */
+         display:inline-block;
+         cursor:pointer;
+       }
+       .addbtn{
+         cursor:pointer;
+         margin-left:15px;
+         padding:3px;
+/*          border:1px solid #444; */
+         position:absolute;
+         right:10px;
+        
+       }
+       .addbtn:hover{
+         color:#7fd1b9;
+       }
+       .del_btn:hover{
+        color:#7fd1b9;
+       }
+      /*    Layout Frame  */
+      .customsection{
+        text-align:center;
+        position:relative;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+      }
+
+      .wrapper{
+        background-color: #fefefe;
+        border:1px solid black;
+        width:365px;
+        height:613px;
+        top:50%;
+        left:50%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        border-radius:8px;
+      }
+       @media(min-width:768px){
+        .container{
+          width:350px; 
+               }
+       }
+/*       @media(min-width:768px){
+        .wrapper{
+          width:350px;
+          height:600px;
+          position:fixed; 
+               }
+       } */
+       .info{
+         position:absolute;
+         top:0;
+         margin-top:10px;
+       }
+      /*    shoplist(buylist)    */
+       #shoplist{
+         display:inline-block;
+/*          border:solid 3px red; */
+         position:absolute;
+         top:180px;
+/*          transform:translateY(-10%); */
+        width:320px;
+        height:360px;
+        overflow-x:scroll;
+
+       }
+       input{
+        padding:1px;
+        margin:1px;
+       }
+      /*    itemlist   */
+       #items_list{
+/*          padding:5px; */
+/*          margin-top:10px; */
+/*          border:solid 2px blue; */
+         list-style:none;
+         text-align:left
+       }
+      .buy_item2{
+        height:50px;
+         width:320px;
+         position:absolute; 
+         top:110px;
+         padding:6px;
+        text-align:left;
+         list-style:none;
+         border:solid 3px black;
+         margin-top:10px;
+/*          margin-bottom:20px; */
+         font-weight:900;
+        background-color: black;
+        color:#fefefe;
+         
+         }
+        .buy_item3{
+
+         display:none;
+         }
+        .buy_item{
+         height:40px;
+         position:relative; 
+         padding:5px;
+         list-style:none;
+         border:solid 3px black;
+         margin-top:10px;
+         font-weight:900;
+/*          display:none; */
+         }
+        .buy_item4{
+         height:40px;
+         position:relative; 
+         padding:5px;
+         list-style:none;
+         border:solid 3px black;
+         margin-top:10px;
+         font-weight:900;
+          background-color: #7fd1b9;
+         }
+        
+        .item_shop{
+        display:inline-block;
+        position:absolute;
+        left:30px;
+       }
+       .qty{
+/*         border:1px solid red; */
+        display:inline-block;
+        position:absolute;
+        right:170px;
+/*         background-color: yellow; */
+       }
+      .price{
+/*         border:1px solid red; */
+        display:inline-block;
+        position:absolute;
+        padding-right:8px;
+        padding-left:8px;
+        right:70px;
+        background-color: #7fd1b9;
+       }
+       .price::before{
+         content:"$";
+       }
+      .del_btn{
+/*         border:1px solid red; */
+        display:inline-block;
+        cursor:pointer;
+        position:absolute;
+        right:10px;
+       }
+      
+
+      /*    Bottom navigation  */
+       .nav{
+         display:inline-block;
+         position:absolute;
+         bottom:5px;
+/*          border: 3px solid yellow; */
+       }
+    </style>
+
+	</head>
+	<body>
+    <!--  Custom interactive prototype section     -->
+    <section class="container">
+     <div class="customsection">
+      <!--   Start Phone ScreenWrapper     -->
+       <div class="wrapper">
+        <!--    Start Shopping List      -->
+        <div class="info">
+            <h1>WEEKLY GROCERY LIST</h1>
+            <h4>July 20th</h4>
+            <h6>July 15th~July 21st</h6>
+        </div>
+         <div class="buy_item2">
+            <label>item</label>
+            <input type="text" id="input_name" name="item" size="4" placeholder="item">
+            <label>qty</label>
+            <input type="text" id="input_qty" name="qty" size="2" maxlength="2"placeholder="qty" >
+            <label>$</label>
+            <input type="text" id="input_price" name="price" size="2" maxlength="6" placeholder="$">
+            <span class="addbtn"><i class="icon-plus-circled"></i></span>
+          </div>
+        <div id="shoplist">
+          <!--     Start input section     -->
+          <div class="buy_item3">
+<!--             <label>item</label>
+            <input type="text" id="input_name" name="item" size="8" placeholder="item">
+            <label>qty</label>
+            <input type="text" id="input_qty" name="qty" size="2" maxlength="2" >
+            <label>$</label>
+            <input type="text" id="input_price" name="price" size="6" maxlength="6" placeholder="$">
+            <span class="addbtn"><i class="icon-plus-circled"></i>add</span> -->
+          </div>
+          <!--     End input section     -->
+
+          <!--     Start itemlist section       -->
+          <div id="items_list">
+<!--             <li class="buy_item">1.Milk
+              <div class="qty">1</div>
+              <div class="price">17</div>
+              <div class="del_btn"><i class=" btn_shopitem icon-window-close-o "></i></div>  
+            </li>
+            <li class="buy_item">2.Milk
+              <div class="qty">1</div>
+              <div class="price">17</div>
+              <div class="del_btn"><i class=" btn_shopitem icon-window-close-o "></i></div>
+            </li>
+            <li class="buy_item">3.Milk
+              <div class="qty">1</div>
+              <div class="price">17</div>
+              <div class="del_btn"><i class=" btn_shopitem icon-window-close-o "></i></div>
+            </li> -->
+<!--             <li  class="buy_item">Total
+              <div class="qty">3</div>
+              <div class="price">51</div>  
+            </li> -->
+          </div>
+          <!--     End itemlist section       -->
+
+        </div>
+      <!--    End Shopping List      -->
+       </div>
+        <!--  Start bottom navigation        -->
+       <div class="nav">
+        <a href="#" class="btn_nav">
+        <i class="icon-home-1"></i>
+        </a>
+        <a href="#" class="btn_nav">
+        <i class="icon-back-in-time"></i>
+        </a>
+      </div>
+      <!--  End bottom navigation        -->
+      <!--  End Phone ScreenWrapper     -->
+      </div>
+    </section>
+    
+	</body>
+  <script>
+
+    //Added a shoplist    
+    var shoplist={};
+    shoplist.name="WEEKLY SHOPPING LIST";
+    shoplist.time="2018/07/21";
+    // The list in the shoplist is an array;The shopitem is included in the array.    
+    shoplist.list=[
+      {name:"Milk",qty:1,price:17},
+      {name:"Avocado",qty:2,price:17},
+      {name:"Mushroom",qty:1,price:5.45},
+      {name:"Detergent",qty:1,price:11.99},
+      {name:"Garbage Bags",qty:1,price:12.69},
+      {name:"Hand Soap",qty:1,price:9.34},
+    ];
+
+
+   // Define the html layout for the element.**{name} 
+   var item_html="<li id={id} class='buy_item'>{num}.{item}<div class='qty'>{qty}</div><div class='price'> {price} </div><div id='{del_id}' data-del-id='{delid}'class='del_btn'><i class='btn_shopitem icon-window-close-o'></i></div></li>";
+   var total_html="<li  class='buy_item4'>Total<div class='qty'>{qty}</div><div class='price'>{price}</div></li>";
+ 
+  function showlist(){
+     $('#items_list').html("");
+     var total_qty=0;
+     var total_price=0;
+     for(var i=0;i<shoplist.list.length;i++){
+       var item=shoplist.list[i];
+       var item_id="buyitem_"+i;
+       var del_item_id="del_item_id"+i
+       total_qty+=parseInt(item.qty);
+       total_price+=parseInt(item.price);
+
+       var current_item_html=
+           item_html.replace("{delid}",i)
+                    .replace("{del_id}",del_item_id)
+                    .replace("{price}",item.price)
+                    .replace("{qty}",item.qty)
+                    .replace("{item}",item.name)
+                    .replace("{num}",i+1)
+                    .replace("{id}",item_id)
+                     ;
+       
+        $("#items_list").append(current_item_html);
+
+        // Start the delete button
+        $("#"+del_item_id).click(
+          function(){
+            remove_item($(this).attr("data-del-id"));
+          }
+        );
+        // End the delete button         
+       
+
+     }
+   // Start the total function
+    var current_total_html=
+        total_html.replace("{qty}",total_qty)
+                  .replace("{price}",total_price);
+    $("#items_list").append(current_total_html);
+   // End the total function    
+//      $("#items_list").append(current_item_html);
+  }
+      showlist();
+
+  //  Start Add btn functionnction //
+  $(".addbtn").click(
+    function(){
+      shoplist.list.push(
+        {
+          name:$("#input_name").val(),
+          qty:$("#input_qty").val(),
+          price: $("#input_price").val()
+        }
+      );
+      $("#input_name").val("");
+      $("#input_qty").val("");
+      $("#input_price").val("");
+      showlist();
+    }
+  );
+  //  End Add btn function //
+
+  //    Start remove function //
+  function remove_item(id){
+    shoplist.list.splice(id,1);
+    showlist();
+  }
+//   remove_item(2);
+  //   End remove function //
+
+
+
+
+//        var current_item_html=
+//            item_html.replace("{{num}}",i+1)
+//                     .replace("{{item}}",item.name)
+// //                     .replace("{{id}}","buyitem_"+i)
+//                     .replace("{{qty}}",item.qty)
+//                     .replace("{{price}}",item.price)
+//        ;
+//        $("#items_list").append(current_item_html);
+//      }
+//   var current_total_html=
+//       total_html.replace("{{price}}",total_price);
+      
+//   $("#items_list").append(current_total_html);
+// }
+//   showlist();
+
+// //  Start Add btn functionnction //
+// $(".addbtn").click(
+//   function(){
+//     shoplist.list.push(
+//       {
+//         name:$("#input_name").val(),
+//         qty: $("#input_qty").val(),
+//         price: $("#input_price").val()
+//       }
+//     );
+//     $("#input_name").val("");
+//     $("#input_qty").val("");
+//     $("#input_price").val("");
+//     showlist();
+//   }
+  
+// );
+// //  End Add btn function //
+
+</script>
+
+
+</html>
